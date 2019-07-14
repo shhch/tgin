@@ -5,8 +5,8 @@ import (
 	"os/exec"
 )
 
-func check_build() bool  {
-
+func checkBuild() {
+	fmt.Println("adasdas")
 }
 
 func runCmd(command string, arg string) (bool, string) {

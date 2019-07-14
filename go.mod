@@ -1,4 +1,4 @@
-module server
+module tgin
 
 go 1.12
 

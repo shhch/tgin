@@ -2,10 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"server/src"
+	"src"
 )
-
-
 
 func main() {
 
@@ -14,7 +12,9 @@ func main() {
 	//	"b":"zxc",
 	//}
 
+	src.checkBuild()
+
 	r := gin.Default()
-	r.GET("/check_build", src.check_build)
+	r.GET("/check_build")
 	r.Run("127.0.0.1:8089")
 }
