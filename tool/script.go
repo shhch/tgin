@@ -1,7 +1,21 @@
 package tool
 
-func CheckBuild() bool {
+type Param struct {
+	Password string
+	Ip string
+	Swoole string
+	Paltform string
+	Web string
+	Client string
+	Datrixlog string
+}
+
+func CheckBuild() (string, error) {
 	command := "ps aux|grep /data/git-develop-build/|grep -v grep|awk '{print $2}'"
-	arg := ""
-	RunCmd(command, arg)
+	output, err := RunCmd(command)
+	return output, err
+}
+
+func Build() () {
+
 }

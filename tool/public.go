@@ -26,14 +26,11 @@ func GetParam(c gin.Context)  {
 	}
 }
 
-func RunCmd(command string, arg string) (bool, string) {
-	cmd := exec.Command(command, arg)
+func RunCmd(command string) (string, error ) {
+	cmd := exec.Command("/bin/sh", "-c", command)
+	// Stdout与Stderr用于显示正常输出与错误输出
+	// cmd.Stdout = os.Stdout
+	// cmd.Stderr = os.Stderr
 	output, err := cmd.Output()
-	if err != nil {
-		return false, string(output)
-	}
-	if output != nil{
-		return false, string(output)
-	}
-	return true, string(output)
+	return string(output), err
 }
