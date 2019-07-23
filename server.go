@@ -21,8 +21,15 @@ func main() {
 		})
 	})
 	r.GET("/build", func(c *gin.Context) {
-		param := tool.Param{}
-		param.Password := c.Param("password")
+		tool.P.Password = c.Param("password")
+		tool.P.Client = c.Param("client")
+		tool.P.Ip = c.Param("ip")
+		tool.P.Swoole = c.Param("swoole")
+		tool.P.Platform = c.Param("platform")
+		tool.P.Datrixlog = c.Param("datrixlog")
+		tool.P.Web = c.Param("web")
+
+
 	})
 
 	r.Run("127.0.0.1:8089")

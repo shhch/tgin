@@ -26,6 +26,8 @@ func GetParam(c gin.Context)  {
 	}
 }
 
+// command为需要执行的命令，可为脚本，可为shell命令，返回执行的输出
+// 该方法为阻塞调用，调用完成后返回结果
 func RunCmd(command string) (string, error ) {
 	cmd := exec.Command("/bin/sh", "-c", command)
 	// Stdout与Stderr用于显示正常输出与错误输出
