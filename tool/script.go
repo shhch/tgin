@@ -2,8 +2,6 @@ package tool
 
 import (
 	"bytes"
-	"go/types"
-	"log"
 	"net"
 	"strings"
 )
@@ -70,7 +68,10 @@ func Build() (ret map[string]interface{}) {
 	output, err := RunCmd(cmd)
 	if err != nil {
 		ret["success"] = false
-		ret["msg"] = "ip不能为空"
+		ret["msg"] = err.Error()
+		return
 	}
+	ret["success"] = true
+	ret["result"] = output
 	return
 }

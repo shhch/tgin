@@ -1,12 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"tgin/tool"
 )
 
 
 func main() {
+
+	addr := "127.0.0.1:8089"
 
 	r := gin.Default()
 	r.GET("/checkbuild", func(c *gin.Context) {
@@ -29,8 +32,15 @@ func main() {
 		tool.P.Datrixlog = c.Param("datrixlog")
 		tool.P.Web = c.Param("web")
 
+		result := tool.Build()
+		c.JSON(200, result)
 
 	})
 
-	r.Run("127.0.0.1:8089")
+	err := r.Run(addr)
+	if err != nil {
+		fmt.Println("Error" + err.Error())
+	}else {
+		fmt.Println("服务启动，监听：" + addr)
+	}
 }
