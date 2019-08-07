@@ -39,7 +39,7 @@ func main() {
 
 	err := r.Run(addr)
 	if err != nil {
-		fmt.Println("Error" + err.Error())
+		fmt.Println("Error :" + err.Error())
 	}else {
 		fmt.Println("服务启动，监听：" + addr)
 	}
