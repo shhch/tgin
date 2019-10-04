@@ -1,5 +1,7 @@
 package algorithm
 
+import "fmt"
+
 /**
 所有排序默认升序
  */
@@ -65,15 +67,39 @@ func SelectSor()  {
 // 快速排序
 // 时间复杂度：O(NlogN)，稳定性：不稳定
 // 类似于选择排序的定位思想）选一基准元素，依次将剩余元素中小于该基准元素的值放置其左侧，大于等于该基准元素的值放置其右侧；然后，取基准元素的前半部分和后半部分分别进行同样的处理；以此类推，直至各子序列剩余一个元素时，即排序完成（类比二叉树的思想，from up to down
-func QuickSort()  {
+func QuickSort(arr []int, beg ,end int) {
+	if beg < end {
+		p := partition(arr, beg, end)
+		QuickSort(arr,beg, p-1)
+		QuickSort(arr,p+1, end)
+	}
+}
 
+func partition(arr []int, beg ,end int) int {
+	p := arr[beg]
+	i, j := beg + 1, end
+	for i <= j {
+		if arr[i] < p {
+			i++
+		}else if arr[j] > p {
+			j--
+		}else if arr[i] >= p && arr[j] <= p {
+			swap(arr,i,j)
+			i++
+			j--
+		}
+	}
+
+	fmt.Println(arr,"i,j:",i,j)
+	swap(arr, j, beg)
+	return j
 }
 
 // 插入排序
 // 时间复杂度：O(N2)，稳定性：稳定
 // 数列前面部分看为有序，依次将后面的无序数列元素插入到前面的有序数列中，初始状态有序数列仅有一个元素，即首元素。在将无序数列元素插入有序数列的过程中，采用了逆序遍历有序数列，相较于顺序遍历会稍显繁琐，但当数列本身已近排序状态效率会更高
-func InsertSort()  {
-
+func InsertSort(arr []int)  {
+	
 }
 
 // 希尔排序
@@ -96,4 +122,3 @@ func CountSort()  {
 func MergeSortInOrder()  {
 
 }
-
