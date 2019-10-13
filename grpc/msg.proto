@@ -1,0 +1,17 @@
+syntax="proto3";
+
+message SendRequest{
+    string msg = 1;
+    string type = 2;
+    int32 tag = 3;
+}
+
+message SendResponse{
+    bool result = 1;
+    string msg = 2;
+    int32 tag = 3;
+}
+
+service Send {
+    rpc Send(SendRequest) returns (SendResponse);
+}
