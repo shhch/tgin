@@ -4,11 +4,21 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net"
+	"os"
 	msg "tgin/grpc"
 	"tgin/tool"
 )
+
+func init()  {
+	// set log output format
+	log.SetFormatter(&log.JSONFormatter{})
+	log.SetOutput(os.Stdout)
+
+	// set log level
+	log.SetLevel(log.DebugLevel)
+}
 
 func main() {
 	runGrpc()

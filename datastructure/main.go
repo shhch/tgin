@@ -1,16 +1,13 @@
 package main
 
-import (
-	"tgin/datastructure"
-)
+import "tgin/datastructure/code"
 
 func main()  {
-	t := datastructure.List{}
-	t.PushNode(1)
-	t.PushNode(2)
-	t.PushNode(3)
-	t.PushNode(4)
-	t.PushNode(5)
+	t := code.List{}
+	t.PushNode(7)
+	t.ShowList()
+	t.PushNode(1,2,43,3,5)
+	t.ShowList()
 	t.AddNode(9)
 	t.ShowList()
 	t.Insert(4,10)

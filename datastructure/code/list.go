@@ -1,4 +1,4 @@
-package datastructure
+package code
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func (list *List) IsEmpty() bool {
 	return true
 }
 
-func (list *List)  GetLen() int {
+func (list *List) GetLen() int {
 	if list.IsEmpty() {
 		return 0
 	}
@@ -33,30 +33,35 @@ func (list *List)  GetLen() int {
 	return count
 }
 
-func (list *List)  AddNode(obj interface{})  {
-	n := &Node{Data:obj}
+func (list *List) AddNode(obj interface{}) {
+	n := &Node{Data: obj}
 	if list.IsEmpty() {
 		list.Head = n
-	}else {
-		n.Next =list.Head
+	} else {
+		n.Next = list.Head
 		list.Head = n
 	}
 }
 
-func (list *List)  PushNode(obj interface{})  {
-	n := &Node{Data:obj}
-	if list.IsEmpty() {
-		list.Head = n
-	}else {
-		cur := list.Head
+func (list *List) PushNode(obj ...interface{}) {
+	var cur *Node
+	for _, v := range obj {
+		if list.IsEmpty() {
+			fmt.Println("???")
+			list.Head = &Node{Data: v}
+			continue
+		}
+
+		cur = list.Head
 		for cur.Next != nil {
 			cur = cur.Next
 		}
-		cur.Next = n
+		cur.Next = &Node{Data: v}
 	}
+
 }
 
-func (list *List)  ShowList()  {
+func (list *List) ShowList() {
 	cur := list.Head
 	for cur != nil {
 		fmt.Print(cur.Data, " ")
@@ -65,17 +70,17 @@ func (list *List)  ShowList()  {
 	fmt.Print("\n")
 }
 
-func (list *List) Insert(index int, obj interface{})  {
+func (list *List) Insert(index int, obj interface{}) {
 	if index <= 0 {
 		list.AddNode(obj)
-	}else if index >= list.GetLen() {
+	} else if index >= list.GetLen() {
 		list.PushNode(obj)
-	}else {
+	} else {
 		cur := list.Head
 		for i := 1; i < index; i++ {
 			cur = cur.Next
 		}
-		n := &Node{Data:obj}
+		n := &Node{Data: obj}
 		n.Next = cur.Next
 		cur.Next = n
 	}
@@ -86,9 +91,9 @@ func (list *List) Remove(index int) interface{} {
 		return list.RemoveHead()
 	} else if index >= list.GetLen() {
 		return list.Pop()
-	}else{
+	} else {
 		cur := list.Head
-		for i := 1; i < index - 1; i++ {
+		for i := 1; i < index-1; i++ {
 			cur = cur.Next
 		}
 		data := cur.Next.Data
@@ -129,7 +134,7 @@ func (list *List) RemoveHead() interface{} {
 }
 
 func (list *List) ReverserList() {
-	if list.IsEmpty() || list.Head.Next == nil{
+	if list.IsEmpty() || list.Head.Next == nil {
 		return
 	}
 	cur := list.Head

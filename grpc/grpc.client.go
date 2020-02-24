@@ -5,7 +5,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"log"
-	msg "tgin/grpc"
+	"tgin/grpc/code"
 )
 
 const (
@@ -15,9 +15,9 @@ const (
 func main()  {
 	cn, _ := grpc.Dial(addr)
 	defer cn.Close()
-	client := msg.NewSendClient(cn)
+	client := code.NewSendClient(cn)
 
-	var req msg.SendRequest
+	var req code.SendRequest
 	req.Type = "测试type"
 	req.Tag = 123
 	req.Msg = "测试msg"
