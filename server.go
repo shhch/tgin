@@ -3,15 +3,14 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"google.golang.org/grpc"
 	log "github.com/sirupsen/logrus"
+	"google.golang.org/grpc"
 	"net"
 	"os"
-	msg "tgin/grpc"
 	"tgin/tool"
 )
 
-func init()  {
+func init() {
 	// set log output format
 	log.SetFormatter(&log.JSONFormatter{})
 	log.SetOutput(os.Stdout)
@@ -21,17 +20,17 @@ func init()  {
 }
 
 func main() {
-	runGrpc()
+	runGin()
 }
 
-func runGrpc()  {
+func runGrpc() {
 	addr := "127.0.0.1:8080"
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
-		log.Fatalf("failed to listem" + addr, err)
+		log.Fatalf("failed to listem"+addr, err)
 	}
 	s := grpc.NewServer()
-	msg.RegisterSendServer(s, &msg.Msg{})
+
 	err = s.Serve(lis)
 	if err != nil {
 		log.Fatalf("error", err)
@@ -40,20 +39,28 @@ func runGrpc()  {
 	log.Println("grpc server is listen: %s", addr)
 }
 
-func runGin()  {
+func runGin() {
 
 	addr := "127.0.0.1:8080"
 
 	r := gin.Default()
+
+	r.GET("/test", func(c *gin.Context) {
+		fmt.Println("in the next")
+		c.JSON(200, gin.H{
+			"msg": "lalalal",
+		})
+	})
+
 	r.GET("/checkbuild", func(c *gin.Context) {
 		ret, err := tool.CheckBuild()
 		if err != nil {
-			c.JSON(200,gin.H{
-				"msg":err.Error(),
+			c.JSON(200, gin.H{
+				"msg": err.Error(),
 			})
 		}
-		c.JSON(200,gin.H{
-			"result":ret,
+		c.JSON(200, gin.H{
+			"result": ret,
 		})
 	})
 	r.GET("/build", func(c *gin.Context) {
@@ -73,8 +80,7 @@ func runGin()  {
 	err := r.Run(addr)
 	if err != nil {
 		fmt.Println("Error :" + err.Error())
-	}else {
+	} else {
 		fmt.Println("服务启动，监听：" + addr)
 	}
 }
-

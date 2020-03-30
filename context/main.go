@@ -1,5 +1,7 @@
 package main
 
-func main() {
+import "tgin/context/code"
 
+func main() {
+	code.RunTest()
 }
